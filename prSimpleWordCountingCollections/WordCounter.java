@@ -1,10 +1,12 @@
 package prSimpleWordCountingCollections;
 
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.TreeSet;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -16,19 +18,12 @@ public class WordCounter {
 		this.words = new TreeSet<WordInText>();
 	}
 	
-	public void include(String word) {
-		WordInText w = new WordInText(word);
-		Iterator<WordInText> iter = words.iterator();
-		boolean found = false;
-		while (iter.hasNext() && !found) {
-			WordInText wit = iter.next();
-			if (wit.equals(w)) {
-				found = true;
-				wit.increment();				
-			}
-		}
-		if (!found) {
-			words.add(w);
+	protected void include(String word) {
+		try {
+			WordInText wit = find(word);
+			wit.increment();
+		} catch (NoSuchElementException e) {
+			words.add(new WordInText(word));
 		}
 	}
 	
@@ -59,12 +54,39 @@ public class WordCounter {
 		}
 	}
 	
-	public WordInText find(String word) {
-		
-		throw new NoSuchElementException();
+	public WordInText find(String word) {	
+		WordInText w = new WordInText(word);
+		Iterator<WordInText> iter = words.iterator();		
+		boolean found = false;
+		while (iter.hasNext() && !found) {
+			WordInText wit = iter.next();
+			if (w.equals(wit)) {
+				found = true;
+				w = wit;
+				}
+		}		
+		if(!found) {
+			throw new NoSuchElementException();
+		}
+		return w;
 	}
 	
 	public String toString(){
-		return "sda";
+		StringJoiner sj = new StringJoiner(", ", "[", "]");
+		for (WordInText w : words) {
+			sj.add(w.toString());
+		}
+		return String.valueOf(sj);
+	}
+	
+	public void presentWords(String file) throws FileNotFoundException {
+		PrintWriter pw = new PrintWriter(file);
+		presentWords(pw);
+	}
+	
+	public void presentWords(PrintWriter pw) {
+		for(WordInText w : words) {
+			pw.println(w.toString());
+		}
 	}
 }
