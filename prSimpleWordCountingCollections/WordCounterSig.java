@@ -10,12 +10,12 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class WordCounterSig extends WordCounter {
-	private Collection<String> notSignificant;
+	private Set<String> notSignificant;
 
 	public WordCounterSig(Collection<String> noSig) {
 		super();
-		notSignificant = new TreeSet<String>();
-		this.notSignificant = noSig;
+		//notSignificant = new TreeSet<String>();
+		this.notSignificant = new TreeSet<String>(noSig);
 	}
 
 	public WordCounterSig(String nonSigFile, String del) throws FileNotFoundException {
