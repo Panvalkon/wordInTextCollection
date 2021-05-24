@@ -3,7 +3,6 @@ package prSimpleWordCountingCollections;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.TreeSet;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -80,12 +79,13 @@ public class WordCounter {
 	}
 	
 	public void presentWords(String file) throws FileNotFoundException {
-		PrintWriter pw = new PrintWriter(file);
-		presentWords(pw);
+		try (PrintWriter pw = new PrintWriter(file)){
+			presentWords(pw);
+		}
 	}
 	
 	public void presentWords(PrintWriter pw) {
-		for(WordInText w : words) {
+		for (WordInText w : words) {
 			pw.println(w.toString());
 		}
 	}
