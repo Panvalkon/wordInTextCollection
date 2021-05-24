@@ -14,7 +14,6 @@ public class WordCounterSig extends WordCounter {
 
 	public WordCounterSig(Collection<String> noSig) {
 		super();
-		//notSignificant = new TreeSet<String>();
 		this.notSignificant = new TreeSet<String>(noSig);
 	}
 

@@ -12,11 +12,11 @@ import java.util.Scanner;
 
 public class WordCounter {
 	private Set<WordInText> words;
-	
+
 	public WordCounter() {
 		this.words = new TreeSet<WordInText>();
 	}
-	
+
 	protected void include(String word) {
 		try {
 			WordInText wit = find(word);
@@ -25,7 +25,7 @@ public class WordCounter {
 			words.add(new WordInText(word));
 		}
 	}
-	
+
 	private void includeAll(String lineOfWords, String del) {
 		String[] arrOfWords = lineOfWords.split(del);
 		for (String word : arrOfWords) {
@@ -46,44 +46,44 @@ public class WordCounter {
 			readFile(sc, del);
 		}
 	}
-	
+
 	private void readFile(Scanner sc, String del) {
 		while (sc.hasNextLine()) {
 			includeAll(sc.nextLine(), del);
 		}
 	}
-	
-	public WordInText find(String word) {	
+
+	public WordInText find(String word) {
 		WordInText w = new WordInText(word);
-		Iterator<WordInText> iter = words.iterator();		
+		Iterator<WordInText> iter = words.iterator();
 		boolean found = false;
 		while (iter.hasNext() && !found) {
 			WordInText wit = iter.next();
 			if (w.equals(wit)) {
 				found = true;
 				w = wit;
-				}
-		}		
-		if(!found) {
+			}
+		}
+		if (!found) {
 			throw new NoSuchElementException();
 		}
 		return w;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		StringJoiner sj = new StringJoiner(", ", "[", "]");
 		for (WordInText w : words) {
 			sj.add(w.toString());
 		}
 		return String.valueOf(sj);
 	}
-	
+
 	public void presentWords(String file) throws FileNotFoundException {
-		try (PrintWriter pw = new PrintWriter(file)){
+		try (PrintWriter pw = new PrintWriter(file)) {
 			presentWords(pw);
 		}
 	}
-	
+
 	public void presentWords(PrintWriter pw) {
 		for (WordInText w : words) {
 			pw.println(w.toString());

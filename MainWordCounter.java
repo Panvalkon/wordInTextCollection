@@ -14,19 +14,18 @@ public class MainWordCounter {
 			System.out.println("File is not found");
 		}
 		System.out.println(wc.toString());
-		
+
 		WordCounter wc2 = new WordCounter();
 		wc2.includeAll(data, "[ ]");
 		System.out.println(wc2.toString());
-		
-		WordCounter wc3 = new WordCounter();
+
 		try {
 			System.out.println("Startring print write here");
 			wc.presentWords("out.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
