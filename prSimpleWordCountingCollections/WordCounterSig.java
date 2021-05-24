@@ -26,8 +26,9 @@ public class WordCounterSig extends WordCounter {
 	@Override
 	protected void include(String word) {
 		boolean found = false;
-		for (String s : notSignificant) {
-			if (s.equalsIgnoreCase(word)) {
+		Iterator<String> iter = notSignificant.iterator();
+		while (iter.hasNext() && !found) {
+			if(word.equalsIgnoreCase(iter.next())) {
 				found = true;
 			}
 		}
